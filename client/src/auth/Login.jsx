@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FaBookOpen } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -25,6 +26,7 @@ function Login() {
         password,
       });
       console.log("Token:", response.data.token);
+      navigate("/owner")
     } catch (error) {
       console.error("Error logging in:", error);
     }
@@ -79,11 +81,30 @@ function Login() {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Button
             type="submit"
-            sx={{ backgroundColor: "#00ABFF", color: "white", mt: 2 }}
+            sx={{
+              backgroundColor: "#00ABFF",
+              color: "white",
+              mt: 2,
+              "&:hover": {
+                backgroundColor: "#00ABFF",
+                opacity: 1,
+              },
+            }}
           >
-             LOGIN
+            LOGIN
           </Button>
-          <Link href="#">Login</Link>
+          <Typography
+            variant="p"
+            sx={{
+              color: "black",
+              marginTop: 2,
+            }}
+          >
+            Have not an account{" "}
+            <Link sx={{ textDecoration: "none", color: "#00ABFF" }} href="/">
+              signup
+            </Link>
+          </Typography>
         </Box>
       </form>
     </Container>
